@@ -39,13 +39,7 @@ public class NoteController {
     // 게시글 비밀번호 확인 API
     @PostMapping("/api/notes/{id}")
     public boolean checkPassword (@PathVariable Long id, @RequestBody NoteRequestDto requestDto) {
-        Note note = noteRepository.findById(id).orElseThrow(
-                () -> new NullPointerException("에러")
-        );
-        if(!note.getPassword().equals(requestDto.getPassword())) {
-            return false;
-        }
-        return true;
+        return noteService.check(id, requestDto);
     }
 
     // 게시글 수정 API

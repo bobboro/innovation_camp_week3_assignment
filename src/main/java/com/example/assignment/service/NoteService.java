@@ -23,4 +23,15 @@ public class NoteService {
         return note.getId();
     }
 
+    @Transactional
+    public boolean check(Long id, NoteRequestDto requestDto) {
+        Note note = noteRepository.findById(id).orElseThrow(
+                () -> new NullPointerException("에러")
+        );
+        if(!note.getPassword().equals(requestDto.getPassword())) {
+            return false;
+        }
+        return true;
+    }
+
 }
