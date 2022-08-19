@@ -17,13 +17,11 @@ public class NoteService {
     private final NoteRepository noteRepository;
 
     // 게시글 목록 조회
-    @Transactional
     public List<Note> read () {
         return noteRepository.findAllByOrderByCreatedAtDesc();
     }
 
     // 특정 게시글 조회
-    @Transactional
     public List<Note> readOne (Long id) {
         return noteRepository.findAllById(Collections.singleton(id));
     }
@@ -44,8 +42,8 @@ public class NoteService {
         note.update(requestDto);
         return note.getId();
     }
+
     // 비밀번호 확인
-    @Transactional
     public boolean check(Long id, NoteRequestDto requestDto) {
         Note note = noteRepository.findById(id).orElseThrow(
                 () -> new NullPointerException("에러")
